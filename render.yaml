@@ -1,11 +1,8 @@
 services:
   - type: web
     name: laboratorio12-apis-jenifer
-    runtime: web
-    buildCommand: ""
-    startCommand: "php -S 0.0.0.0:$PORT index.php"
+    runtime: docker
     plan: free
     envVars:
       - key: WEATHER_API_KEY
         sync: false
-        
