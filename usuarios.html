@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratorio 12 - Usuarios Fetch</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f6f9; }
+        .container { max-width: 800px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 auto; }
+        button { padding: 10px 20px; background: #2ecc71; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .user-card { background: #f8f9fa; border-left: 4px solid #3498db; padding: 12px; margin-top: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>👥 Lista de Usuarios (Fetch API)</h2>
+    <p><a href="index.php">Volver al Buscador de Clima</a></p>
+    
+    <button id="btnCargar">Invocar Fetch API</button>
+    <div id="loading" style="display:none; margin: 10px 0; color: gray;">⏳ Cargando datos...</div>
+    <div id="usuariosContainer"></div>
+</div>
+
+<script>
+    document.getElementById('btnCargar').addEventListener('click', () => {
+        const container = document.getElementById('usuariosContainer');
+        const loading = document.getElementById('loading');
+        
+        container.innerHTML = '';
+        loading.style.display = 'block';
+
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => {
+                if (!response.ok) throw new Error('Error al obtener datos');
+                return response.json();
+            })
+            .then(data => {
+                loading.style.display = 'none';
+                data.forEach(user => {
+                    const div = document.createElement('div');
+                    div.className = 'user-card';
+                    div.innerHTML = `
+                        <h4>${user.name} (@${user.username})</h4>
+                        <p><strong>Email:</strong> ${user.email} | <strong>Ciudad:</strong> ${user.address.city}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => {
+                loading.style.display = 'none';
+                container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+            });
+    });
+</script>
+</body>
+</html>
