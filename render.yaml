@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: clima-apis-jenifer
+    runtime: php
+    plan: free
+    envVars:
+      - key: WEATHER_API_KEY
+        sync: false
+        
