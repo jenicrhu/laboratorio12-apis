@@ -1,7 +1,9 @@
 services:
   - type: web
-    name: clima-apis-jenifer
-    runtime: php
+    name: laboratorio12-apis-jenifer
+    runtime: web
+    buildCommand: ""
+    startCommand: "php -S 0.0.0.0:$PORT index.php"
     plan: free
     envVars:
       - key: WEATHER_API_KEY
